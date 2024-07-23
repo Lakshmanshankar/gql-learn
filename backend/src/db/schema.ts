@@ -18,41 +18,17 @@ export const tasks = sqliteTable("tasks", {
     .notNull(), // Foreign key reference
 });
 
-//export const userRelations = relations(users, ({ many }) => ({
-//  tasks: many(tasks)
-//}));
-//export const taskRelations = relations(tasks, ({ one }) => ({
-//  user: one(users, {
-//    fields: [tasks.userId],
-//    references: [users.id]
-//  })
-//}));
+export const userRelations = relations(users, ({ many }) => ({
+  tasks: many(tasks)
+}));
+
+export const taskRelations = relations(tasks, ({ one }) => ({
+  user: one(users, {
+    fields: [tasks.userId],
+    references: [users.id]
+  })
+}));
 
 export type TaskInsert = typeof tasks.$inferInsert;
 export type TaskSelect = typeof tasks.$inferSelect;
-// relations
-
-// TYPES
-//export type DayOfWeek =
-//  | "Monday"
-//  | "Tuesday"
-//  | "Wednesday"
-//  | "Thursday"
-//  | "Friday"
-//  | "Saturday"
-//  | "Sunday";
-//
-//export const day = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
-//export const type_files = sqliteTable("type_table", {
-//  numeric_value: integer("numeric", { mode: "number" }).primaryKey({
-//    autoIncrement: true,
-//  }),
-//  numeric_boolean: integer("bool_val", { mode: "boolean" }),
-//  date_val: integer("date_v", { mode: "timestamp" }),
-//  multi_val: text("multi_v", { mode: "json" }).$type<DayOfWeek[]>(),
-//  sel_val: text("sel_v", { enum: day }),
-//});
-//
-//export type FileInsertType = typeof type_files.$inferInsert;
-//export type FileSelectType = typeof type_files.$inferSelect;
-//console.log("🧬 schema generated");
+console.log("🧬 schema generated");
