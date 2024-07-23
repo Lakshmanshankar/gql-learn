@@ -203,7 +203,13 @@ export type TasksSelectItem = {
   id: Scalars['Int']['output'];
   status: TasksStatusEnum;
   task_name: Scalars['String']['output'];
+  user?: Maybe<TasksUserRelation>;
   userId: Scalars['Int']['output'];
+};
+
+
+export type TasksSelectItemUserArgs = {
+  where?: InputMaybe<UsersFilters>;
 };
 
 export enum TasksStatusEnum {
@@ -339,6 +345,30 @@ export type TasksUserIdfiltersOr = {
   notLike?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type TasksUserRelation = {
+  __typename?: 'TasksUserRelation';
+  email: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  tasks: Array<TasksUserRelationTasksRelation>;
+  username: Scalars['String']['output'];
+};
+
+
+export type TasksUserRelationTasksArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<TasksOrderBy>;
+  where?: InputMaybe<TasksFilters>;
+};
+
+export type TasksUserRelationTasksRelation = {
+  __typename?: 'TasksUserRelationTasksRelation';
+  id: Scalars['Int']['output'];
+  status: TasksStatusEnum;
+  task_name: Scalars['String']['output'];
+  userId: Scalars['Int']['output'];
+};
+
 export type UsersEmailFilters = {
   OR?: InputMaybe<Array<UsersEmailfiltersOr>>;
   eq?: InputMaybe<Scalars['String']['input']>;
@@ -451,6 +481,36 @@ export type UsersOrderBy = {
 
 export type UsersSelectItem = {
   __typename?: 'UsersSelectItem';
+  email: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  tasks: Array<UsersTasksRelation>;
+  username: Scalars['String']['output'];
+};
+
+
+export type UsersSelectItemTasksArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<TasksOrderBy>;
+  where?: InputMaybe<TasksFilters>;
+};
+
+export type UsersTasksRelation = {
+  __typename?: 'UsersTasksRelation';
+  id: Scalars['Int']['output'];
+  status: TasksStatusEnum;
+  task_name: Scalars['String']['output'];
+  user?: Maybe<UsersTasksRelationUserRelation>;
+  userId: Scalars['Int']['output'];
+};
+
+
+export type UsersTasksRelationUserArgs = {
+  where?: InputMaybe<UsersFilters>;
+};
+
+export type UsersTasksRelationUserRelation = {
+  __typename?: 'UsersTasksRelationUserRelation';
   email: Scalars['String']['output'];
   id: Scalars['Int']['output'];
   username: Scalars['String']['output'];
