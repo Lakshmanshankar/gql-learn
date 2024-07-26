@@ -13,9 +13,10 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  mutation createUser($values: UsersInsertInput!) {\n    insertIntoUsersSingle(values: $values) {\n      id\n      email\n      username\n    }\n  }\n": types.CreateUserDocument,
     "\n  query getUsers {\n    users {\n      id\n      email\n      username\n    }\n  }\n": types.GetUsersDocument,
-    "\n  mutation createUser($values: UsersInsertInput!){\n    insertIntoUsersSingle(values: $values) {\n      id,\n    }\n  }\n": types.CreateUserDocument,
-    "\n  mutation createUser($values: UsersInsertInput!) {\n    insertIntoUsersSingle(values: $values) {\n      id\n    }\n  }\n": types.CreateUserDocument,
+    "\n  query getSingleUser($where: UsersFilters){\n    usersSingle(where: $where) {\n      username\n      email\n      id\n    }\n  }\n": types.GetSingleUserDocument,
+    "\n  mutation updateSingleU($input: UserUpdateSingleInput!){\n    updateUserSingle(input: $input) {\n      id\n      email\n      username\n    }\n  }\n": types.UpdateSingleUDocument,
 };
 
 /**
@@ -35,15 +36,19 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  mutation createUser($values: UsersInsertInput!) {\n    insertIntoUsersSingle(values: $values) {\n      id\n      email\n      username\n    }\n  }\n"): (typeof documents)["\n  mutation createUser($values: UsersInsertInput!) {\n    insertIntoUsersSingle(values: $values) {\n      id\n      email\n      username\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  query getUsers {\n    users {\n      id\n      email\n      username\n    }\n  }\n"): (typeof documents)["\n  query getUsers {\n    users {\n      id\n      email\n      username\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation createUser($values: UsersInsertInput!){\n    insertIntoUsersSingle(values: $values) {\n      id,\n    }\n  }\n"): (typeof documents)["\n  mutation createUser($values: UsersInsertInput!){\n    insertIntoUsersSingle(values: $values) {\n      id,\n    }\n  }\n"];
+export function gql(source: "\n  query getSingleUser($where: UsersFilters){\n    usersSingle(where: $where) {\n      username\n      email\n      id\n    }\n  }\n"): (typeof documents)["\n  query getSingleUser($where: UsersFilters){\n    usersSingle(where: $where) {\n      username\n      email\n      id\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation createUser($values: UsersInsertInput!) {\n    insertIntoUsersSingle(values: $values) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation createUser($values: UsersInsertInput!) {\n    insertIntoUsersSingle(values: $values) {\n      id\n    }\n  }\n"];
+export function gql(source: "\n  mutation updateSingleU($input: UserUpdateSingleInput!){\n    updateUserSingle(input: $input) {\n      id\n      email\n      username\n    }\n  }\n"): (typeof documents)["\n  mutation updateSingleU($input: UserUpdateSingleInput!){\n    updateUserSingle(input: $input) {\n      id\n      email\n      username\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

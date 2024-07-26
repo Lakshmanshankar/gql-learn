@@ -1,18 +1,10 @@
 import { useQuery } from "@apollo/client";
-import { gql } from "@/__generated__/gql";
 import { GetUsersQuery } from "@/__generated__/graphql";
-const GET_LOCATIONS = gql(/* GraphQL */ `
-  query getUsers {
-    users {
-      id
-      email
-      username
-    }
-  }
-`);
+import { GET_USERS } from "@/Pages/graphqlQueries";
+import { UpdateUser } from "./Update";
 
 export function ListUsers() {
-  const { loading, error, data } = useQuery(GET_LOCATIONS);
+  const { loading, error, data } = useQuery(GET_USERS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
   console.log(data?.users);
@@ -36,6 +28,7 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
           <th className="p-2 border-b border-slate-200">ID</th>
           <th className="p-2 border-b border-slate-200">Email</th>
           <th className="p-2 border-b border-slate-200">Username</th>
+          <th className="p-2 border-b border-slate-200">Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -44,6 +37,9 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
             <td className="p-2 border-b border-slate-200">{user.id}</td>
             <td className="p-2 border-b border-slate-200">{user.email}</td>
             <td className="p-2 border-b border-slate-200">{user.username}</td>
+            <td className="p-2 border-b border-slate-200">
+              <UpdateUser userID={user?.id} />
+            </td>
           </tr>
         ))}
       </tbody>

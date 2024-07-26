@@ -19,14 +19,14 @@ export const tasks = sqliteTable("tasks", {
 });
 
 export const userRelations = relations(users, ({ many }) => ({
-  tasks: many(tasks)
+  tasks: many(tasks),
 }));
 
 export const taskRelations = relations(tasks, ({ one }) => ({
   user: one(users, {
     fields: [tasks.userId],
-    references: [users.id]
-  })
+    references: [users.id],
+  }),
 }));
 
 export type TaskInsert = typeof tasks.$inferInsert;

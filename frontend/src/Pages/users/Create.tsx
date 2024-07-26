@@ -1,15 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@apollo/client";
-import { gql } from "@/__generated__/gql";
-import { UsersInsertInput } from "@/__generated__/graphql";
-
-const CREATE_USER = gql(/* GraphQL */ `
-  mutation createUser($values: UsersInsertInput!) {
-    insertIntoUsersSingle(values: $values) {
-      id
-    }
-  }
-`);
+import { UsersInsertInput, UsersSelectItem } from "@/__generated__/graphql";
+import { CREATE_USER, GET_USERS } from "@/Pages/graphqlQueries";
 
 export function CreateUser() {
   const {
@@ -20,10 +12,23 @@ export function CreateUser() {
 
   const [createUser] = useMutation(CREATE_USER, {
     onCompleted: () => {
-      alert("User added successfully");
+      console.log("user created successfully");
     },
-    onError: () => {
-      console.log("cannot add user");
+    onError: (error) => {
+      console.log("cannot add user", error);
+    },
+
+    update(cache, { data }) {
+      const existingData = cache.readQuery({ query: GET_USERS }) || {
+        users: [],
+      };
+      if (data?.insertIntoUsersSingle) {
+        const newUsers = [...existingData.users, data.insertIntoUsersSingle];
+        cache.writeQuery({
+          query: GET_USERS,
+          data: { users: newUsers as unknown as UsersSelectItem[] },
+        });
+      }
     },
   });
 

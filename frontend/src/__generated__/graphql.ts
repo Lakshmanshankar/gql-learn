@@ -31,6 +31,7 @@ export type Mutation = {
   insertIntoUsers: Array<UsersItem>;
   insertIntoUsersSingle?: Maybe<UsersItem>;
   updateTasks: Array<TasksItem>;
+  updateUserSingle?: Maybe<User>;
   updateUsers: Array<UsersItem>;
 };
 
@@ -68,6 +69,11 @@ export type MutationInsertIntoUsersSingleArgs = {
 export type MutationUpdateTasksArgs = {
   set: TasksUpdateInput;
   where?: InputMaybe<TasksFilters>;
+};
+
+
+export type MutationUpdateUserSingleArgs = {
+  input: UserUpdateSingleInput;
 };
 
 
@@ -369,6 +375,20 @@ export type TasksUserRelationTasksRelation = {
   userId: Scalars['Int']['output'];
 };
 
+export type User = {
+  __typename?: 'User';
+  email?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  tasks?: Maybe<Array<Maybe<TasksItem>>>;
+  username?: Maybe<Scalars['String']['output']>;
+};
+
+export type UserUpdateSingleInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['Int']['input'];
+  username?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type UsersEmailFilters = {
   OR?: InputMaybe<Array<UsersEmailfiltersOr>>;
   eq?: InputMaybe<Scalars['String']['input']>;
@@ -561,18 +581,34 @@ export type UsersUsernamefiltersOr = {
   notLike?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'UsersSelectItem', id: number, email: string, username: string }> };
-
 export type CreateUserMutationVariables = Exact<{
   values: UsersInsertInput;
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', insertIntoUsersSingle?: { __typename?: 'UsersItem', id: number } | null };
+export type CreateUserMutation = { __typename?: 'Mutation', insertIntoUsersSingle?: { __typename?: 'UsersItem', id: number, email: string, username: string } | null };
+
+export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
+export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'UsersSelectItem', id: number, email: string, username: string }> };
+
+export type GetSingleUserQueryVariables = Exact<{
+  where?: InputMaybe<UsersFilters>;
+}>;
+
+
+export type GetSingleUserQuery = { __typename?: 'Query', usersSingle?: { __typename?: 'UsersSelectItem', username: string, email: string, id: number } | null };
+
+export type UpdateSingleUMutationVariables = Exact<{
+  input: UserUpdateSingleInput;
+}>;
+
+
+export type UpdateSingleUMutation = { __typename?: 'Mutation', updateUserSingle?: { __typename?: 'User', id?: number | null, email?: string | null, username?: string | null } | null };
+
+
+export const CreateUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"values"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UsersInsertInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertIntoUsersSingle"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"values"},"value":{"kind":"Variable","name":{"kind":"Name","value":"values"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<CreateUserMutation, CreateUserMutationVariables>;
 export const GetUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<GetUsersQuery, GetUsersQueryVariables>;
-export const CreateUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"values"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UsersInsertInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertIntoUsersSingle"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"values"},"value":{"kind":"Variable","name":{"kind":"Name","value":"values"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateUserMutation, CreateUserMutationVariables>;
+export const GetSingleUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSingleUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UsersFilters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"usersSingle"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<GetSingleUserQuery, GetSingleUserQueryVariables>;
+export const UpdateSingleUDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateSingleU"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserUpdateSingleInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserSingle"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<UpdateSingleUMutation, UpdateSingleUMutationVariables>;
