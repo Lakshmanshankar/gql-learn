@@ -1,5 +1,7 @@
 ![[Arch.png]]
 
+![Architecture](./images/Arch.png)
+
 The above is my todo application to improve my understanding here is the architecture of the application
 
 
@@ -9,12 +11,23 @@ The above is my todo application to improve my understanding here is the archite
 3. Learnt about drizzle orm with sqlite (writing schemas)
 
 
-> [!NOTE] Frontend caching
+> [!NOTE]
 > Frontend Apollo client which is used as a graphql client to fetch
 >
 
 ##### Caching Architecture
 
-![[CachingArch.png]]
+![CachingArch.png](./images/CachingArch.png)
+
+> [!NOTE]
+> This is a note callout.
+
+
+> [!IMPORTANT]
+> This is an important callout.
+
+
+> [!TIP]
+> This is a tip callout.
 
 ----
