@@ -8,12 +8,12 @@ function App() {
   return (
     <div className="flex gap-5 m-5">
       <div>
-        <CreateUser />
-        <ListUsers />
+        {/* <CreateUser /> */}
+        {/* <ListUsers /> */}
       </div>
       <div>
         <CreateTask />
-        <ListTasks />
+        {/* <ListTasks /> */}
       </div>
       <div>
         <ListUserTask />

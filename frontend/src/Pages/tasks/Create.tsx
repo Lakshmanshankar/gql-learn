@@ -80,7 +80,7 @@ export function CreateTask() {
           <label>assigned username</label>
           <select defaultValue={userInputOptions?.[0]?.id} {...register("userId", { valueAsNumber: true })} className="p-3 rounded-md">
             {userInputOptions?.map((user) => {
-              return <option key={user.id} value={user.id}>{user.username}xxx{user.id}</option>
+              return <option key={user.id} value={user.id}>{user.username}</option>
             })}
           </select>
         </div>

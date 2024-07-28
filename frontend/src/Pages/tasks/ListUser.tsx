@@ -2,6 +2,7 @@ import { useQuery, useLazyQuery } from "@apollo/client";
 import { GetTasksQuery, TasksSelectItem } from "@/__generated__/graphql";
 import { GET_USER_SINGLE, GET_USERS } from "@/Pages/graphqlQueries";
 import { useState, useEffect } from "react";
+import { log } from "console";
 
 export function ListUserTask() {
   const [userId, setUserId] = useState<number | null>(null);
@@ -10,16 +11,18 @@ export function ListUserTask() {
   const [getUserTasks, { data: userdata }] = useLazyQuery(GET_USER_SINGLE);
   useEffect(() => {
     if (userId !== null) {
-      getUserTasks({
-        variables: {
-          where: {
-            id: {
-              eq: userId
-            }
-          }
-        }
-      });
+      console.log("hello");
+      // getUserTasks({
+      //   variables: {
+      //     where: {
+      //       id: {
+      //         eq: userId
+      //       }
+      //     }
+      //   }
+      // });
     }
+    console.log("MOUNTED ")
   }, [userId, getUserTasks]);
   const data = (userdata?.usersSingle?.tasks);
   return (
