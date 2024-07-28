@@ -11,7 +11,7 @@ export const tasks = sqliteTable("tasks", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   task_name: text("task_name", { length: 256 }).notNull(),
   status: text("status", {
-    enum: ["pending", "not started", "compeleted"],
+    enum: ["pending", "not_started", "compeleted"],
   }).notNull(),
   userId: integer("user_id")
     .references(() => users.id)

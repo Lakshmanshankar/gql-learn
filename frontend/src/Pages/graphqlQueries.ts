@@ -26,6 +26,11 @@ export const GET_USER_SINGLE = gql(/*GRAPHQL*/ `
       username
       email
       id
+      tasks {
+        id
+        task_name
+        status
+      }
     }
   }
 `);
@@ -37,6 +42,31 @@ export const UPDATE_USER_SINGLE = gql(`
       id
       email
       username
+    }
+  }
+`)
+
+export const INSERT_TASK = gql(` 
+  mutation create($values: TasksInsertInput!){
+    insertIntoTasksSingle(values: $values) {
+      id,
+      userId,
+      task_name,
+      status
+    }
+  }
+`)
+
+export const GET_ALL_TASKS = gql(`
+  query getTasks{
+    tasks {
+      id,
+      status,
+      task_name,
+      userId
+      user {
+        username
+      }
     }
   }
 `)
